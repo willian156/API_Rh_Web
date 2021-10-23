@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_Rh_web", "API_Rh_web\API_Rh_web.csproj", "{FF99CAFC-A134-4B8F-9C2B-7BE17842EA08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF99CAFC-A134-4B8F-9C2B-7BE17842EA08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF99CAFC-A134-4B8F-9C2B-7BE17842EA08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF99CAFC-A134-4B8F-9C2B-7BE17842EA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF99CAFC-A134-4B8F-9C2B-7BE17842EA08}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0576DE09-FE22-4427-BC80-CD0047707542}
+	EndGlobalSection
+EndGlobal
