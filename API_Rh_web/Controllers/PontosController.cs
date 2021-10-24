@@ -11,11 +11,11 @@ namespace API_Rh_web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PontoesController : ControllerBase
+    public class PontosController : ControllerBase
     {
         private readonly Context _context;
 
-        public PontoesController(Context context)
+        public PontosController(Context context)
         {
             _context = context;
         }
@@ -78,7 +78,21 @@ namespace API_Rh_web.Controllers
         public async Task<ActionResult<Ponto>> PostPonto(Ponto ponto)
         {
             _context.Ponto.Add(ponto);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (PontoExists(ponto.id_vaga))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return CreatedAtAction("GetPonto", new { id = ponto.id_vaga }, ponto);
         }

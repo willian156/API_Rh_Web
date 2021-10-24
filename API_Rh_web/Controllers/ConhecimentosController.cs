@@ -20,14 +20,14 @@ namespace API_Rh_web.Controllers
             _context = context;
         }
 
-        // GET: api/Conhecimentos
+        // GET: api/Conhecimentoes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Conhecimento>>> GetConhecimento()
         {
             return await _context.Conhecimento.ToListAsync();
         }
 
-        // GET: api/Conhecimentos/5
+        // GET: api/Conhecimentoes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Conhecimento>> GetConhecimento(int id)
         {
@@ -41,7 +41,7 @@ namespace API_Rh_web.Controllers
             return conhecimento;
         }
 
-        // PUT: api/Conhecimentos/5
+        // PUT: api/Conhecimentoes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutConhecimento(int id, Conhecimento conhecimento)
@@ -72,7 +72,7 @@ namespace API_Rh_web.Controllers
             return NoContent();
         }
 
-        // POST: api/Conhecimentos
+        // POST: api/Conhecimentoes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Conhecimento>> PostConhecimento(Conhecimento conhecimento)
@@ -83,7 +83,7 @@ namespace API_Rh_web.Controllers
             return CreatedAtAction("GetConhecimento", new { id = conhecimento.id_Conhecimentos }, conhecimento);
         }
 
-        // DELETE: api/Conhecimentos/5
+        // DELETE: api/Conhecimentoes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteConhecimento(int id)
         {

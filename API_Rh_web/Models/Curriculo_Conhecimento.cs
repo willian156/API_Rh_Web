@@ -11,7 +11,9 @@ namespace API_Rh_web.Models
         [Required]
         [Key]
         public int id_Curriculo { get; set; }
+        public Curriculo Curriculo { get; set; }
         [Required]
-        public int id_Conhecimento { get; set; }
+        public int id_Conhecimentos { get; set; }
+        public Conhecimento Conhecimento { get; set; }
     }
 }

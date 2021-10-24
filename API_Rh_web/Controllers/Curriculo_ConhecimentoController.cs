@@ -28,10 +28,10 @@ namespace API_Rh_web.Controllers
         }
 
         // GET: api/Curriculo_Conhecimento/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Curriculo_Conhecimento>> GetCurriculo_Conhecimento(int id)
+        [HttpGet("{id},{x}")]
+        public async Task<ActionResult<Curriculo_Conhecimento>> GetCurriculo_Conhecimento(int id, int x)
         {
-            var curriculo_Conhecimento = await _context.Curriculo_Conhecimento.FindAsync(id);
+            var curriculo_Conhecimento = await _context.Curriculo_Conhecimento.FindAsync(id, x);
 
             if (curriculo_Conhecimento == null)
             {
@@ -43,15 +43,15 @@ namespace API_Rh_web.Controllers
 
         // PUT: api/Curriculo_Conhecimento/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurriculo_Conhecimento(int id, Curriculo_Conhecimento curriculo_Conhecimento)
+        [HttpPut("{id},{x}")]
+        public async Task<IActionResult> PutCurriculo_Conhecimento(int id, int x, Curriculo_Conhecimento curriculo_Conhecimento)
         {
-            if (id != curriculo_Conhecimento.id_Curriculo)
+            if (id != curriculo_Conhecimento.id_Conhecimentos)
             {
-                return BadRequest();
+                    return BadRequest();
             }
 
-            _context.Entry(curriculo_Conhecimento).State = EntityState.Modified;
+                _context.Entry(curriculo_Conhecimento).State = EntityState.Modified;
 
             try
             {
@@ -78,9 +78,23 @@ namespace API_Rh_web.Controllers
         public async Task<ActionResult<Curriculo_Conhecimento>> PostCurriculo_Conhecimento(Curriculo_Conhecimento curriculo_Conhecimento)
         {
             _context.Curriculo_Conhecimento.Add(curriculo_Conhecimento);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (Curriculo_ConhecimentoExists(curriculo_Conhecimento.id_Conhecimentos))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return CreatedAtAction("GetCurriculo_Conhecimento", new { id = curriculo_Conhecimento.id_Curriculo }, curriculo_Conhecimento);
+            return CreatedAtAction("GetCurriculo_Conhecimento", new { id = curriculo_Conhecimento.id_Conhecimentos }, curriculo_Conhecimento);
         }
 
         // DELETE: api/Curriculo_Conhecimento/5
@@ -101,7 +115,7 @@ namespace API_Rh_web.Controllers
 
         private bool Curriculo_ConhecimentoExists(int id)
         {
-            return _context.Curriculo_Conhecimento.Any(e => e.id_Curriculo == id);
+            return _context.Curriculo_Conhecimento.Any(e => e.id_Conhecimentos == id);
         }
     }
 }
