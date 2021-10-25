@@ -19,10 +19,8 @@ namespace API_Rh_web.Models
             modelBuilder.Entity<Ponto>().ToTable("Pontos");
             modelBuilder.Entity<Curriculo>().ToTable("Curriculos");
 
+            modelBuilder.Entity<Ponto>().HasKey(x => x.id_Pontos);
 
-
-            //tabelas muitos-para-muitos
-            modelBuilder.Entity<Ponto>().HasKey(sc => new { sc.VagaPonto, sc.ConhecimentoPonto });
         }
 
     }

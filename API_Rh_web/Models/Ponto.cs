@@ -6,8 +6,16 @@ namespace API_Rh_web.Models
 {
     public class Ponto
     {
-        public ICollection<Vaga> VagaPonto { get; set; }
-        public ICollection<Conhecimento> ConhecimentoPonto { get; set; }
+        [Required]
+        [Key]
+        public int id_Pontos { get; set; }
+
+        public int id_vaga { get; set; }
+
+        public int id_Conhecimentos { get; set; }
         public int pontos { get; set; }
+
+        public Vaga Vaga { get; set; }
+        public Conhecimento Conhecimento { get; set; }
     }
 }

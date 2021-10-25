@@ -12,6 +12,6 @@ namespace API_Rh_web.Models
         public string nmVaga { get; set; }
         public string descricao { get; set; }
         public ICollection<Curriculo> Curriculo { get; set; }
-        public ICollection<Conhecimento> Conhecimento { get; set; }
+        public ICollection<Ponto> Ponto { get; set; }
     }
 }

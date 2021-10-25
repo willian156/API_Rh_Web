@@ -20,14 +20,14 @@ namespace API_Rh_web.Controllers
             _context = context;
         }
 
-        // GET: api/Pontoes
+        // GET: api/Pontos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ponto>>> GetPonto()
         {
             return await _context.Ponto.ToListAsync();
         }
 
-        // GET: api/Pontoes/5
+        // GET: api/Pontos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ponto>> GetPonto(int id)
         {
@@ -41,16 +41,12 @@ namespace API_Rh_web.Controllers
             return ponto;
         }
 
-        // PUT: api/Pontoes/5
+        // PUT: api/Pontos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPonto(int id, Ponto ponto)
         {
-            List<Vaga> lsVga = ponto.VagaPonto.ToList();
-
-            lsVga.ForEach(src => src.id_vaga = id);
-
-            if (lsVga == null)
+            if (id != ponto.id_Pontos)
             {
                 return BadRequest();
             }
@@ -76,34 +72,18 @@ namespace API_Rh_web.Controllers
             return NoContent();
         }
 
-        // POST: api/Pontoes
+        // POST: api/Pontos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Ponto>> PostPonto(Ponto ponto)
         {
-            List<Vaga> lsVga = ponto.VagaPonto.ToList();
-            
             _context.Ponto.Add(ponto);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (!PontoExists(lsVga.Max(x => x.id_vaga)))
-                {
-                    throw;
-                }
-                else
-                {
-                    return Conflict();
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPonto", new NewRecord(lsVga.Max(x => x.id_vaga)), ponto);
+            return CreatedAtAction("GetPonto", new { id = ponto.id_Pontos }, ponto);
         }
 
-        // DELETE: api/Pontoes/5
+        // DELETE: api/Pontos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePonto(int id)
         {
@@ -121,10 +101,7 @@ namespace API_Rh_web.Controllers
 
         private bool PontoExists(int id)
         {
-            
-            return _context.Ponto.Any(e => e.VagaPonto.Equals(id));
+            return _context.Ponto.Any(e => e.id_Pontos == id);
         }
     }
-
-    internal record NewRecord(int Id);
 }
