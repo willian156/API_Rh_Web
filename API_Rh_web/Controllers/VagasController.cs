@@ -48,7 +48,7 @@ namespace API_Rh_web.Controllers
         {
             if (id != vaga.id_vaga)
             {
-                return BadRequest();
+                return BadRequest("id não é igual à vaga.id_vaga!");
             }
 
             _context.Entry(vaga).State = EntityState.Modified;

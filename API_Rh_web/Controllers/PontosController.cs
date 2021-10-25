@@ -46,7 +46,11 @@ namespace API_Rh_web.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPonto(int id, Ponto ponto)
         {
-            if (id != ponto.id_vaga)
+            List<Vaga> lsVga = ponto.VagaPonto.ToList();
+
+            lsVga.ForEach(src => src.id_vaga = id);
+
+            if (lsVga == null)
             {
                 return BadRequest();
             }
@@ -77,6 +81,8 @@ namespace API_Rh_web.Controllers
         [HttpPost]
         public async Task<ActionResult<Ponto>> PostPonto(Ponto ponto)
         {
+            List<Vaga> lsVga = ponto.VagaPonto.ToList();
+            
             _context.Ponto.Add(ponto);
             try
             {
@@ -84,17 +90,17 @@ namespace API_Rh_web.Controllers
             }
             catch (DbUpdateException)
             {
-                if (PontoExists(ponto.id_vaga))
-                {
-                    return Conflict();
-                }
-                else
+                if (!PontoExists(lsVga.Max(x => x.id_vaga)))
                 {
                     throw;
                 }
+                else
+                {
+                    return Conflict();
+                }
             }
 
-            return CreatedAtAction("GetPonto", new { id = ponto.id_vaga }, ponto);
+            return CreatedAtAction("GetPonto", new NewRecord(lsVga.Max(x => x.id_vaga)), ponto);
         }
 
         // DELETE: api/Pontoes/5
@@ -115,7 +121,10 @@ namespace API_Rh_web.Controllers
 
         private bool PontoExists(int id)
         {
-            return _context.Ponto.Any(e => e.id_vaga == id);
+            
+            return _context.Ponto.Any(e => e.VagaPonto.Equals(id));
         }
     }
+
+    internal record NewRecord(int Id);
 }

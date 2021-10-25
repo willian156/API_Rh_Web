@@ -11,8 +11,8 @@ namespace API_Rh_web.Models
         public int id_curriculo { get; set; }
         public string nmPessoa { get; set; }
         public string pessDescricao { get; set; }
-        public int id_Conhecimentos { get; set; }
-        public ICollection<Curriculo_Conhecimento> Curriculo_Conhecimento { get; set; }
+        public ICollection<Conhecimento> Conhecimento { get; set; }
+        public ICollection<Vaga> Vaga { get; set; }
 
         
     }
